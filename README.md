@@ -85,3 +85,15 @@ Create the backend environment file from `.env.example` and replace the placehol
 4. Backend filters chunks using case-insensitive keyword matching.
 5. Top matched chunks are passed to Gemini.
 6. Gemini returns 3 questions with answers, based only on the provided content.
+
+
+
+--->added .env in both frontend and backend
+--->pip install chromadb, in root folder to use chroma run command
+--->npm install in both frontend and backend folders
+--->changed client_url in backend/.env , vite_api_url and vite_socket_url in frontend/.env from localhost to githubcodespacename-portnumber.app.github.dev
+--->Didnot change chromadb_url, it is left unchanged with localhost:8000 only
+--->To connect mongodb from github codespaces add 0.0.0.0 network access to allow all IP addresses
+--->chroma run --path ./chroma --host 0.0.0.0 --port 8000 (root)
+--->npm run dev (frontend)
+--->nom run dev (backend)
