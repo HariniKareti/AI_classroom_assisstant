@@ -1,0 +1,6 @@
+backend/chroma/
+backend/.env
+frontend/.env
+node_modules/
+dist/
+build/
