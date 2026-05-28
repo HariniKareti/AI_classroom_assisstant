@@ -24,15 +24,30 @@ MERN application for generating questions from uploaded PDFs using a simple keyw
 
 ## Run
 
-Backend:
+From the repository root:
+
+```bash
+npm run chroma
+npm run backend:dev
+npm run frontend:dev
+```
+
+If port `8000` is already in use, start Chroma on another port and point the backend to it:
+
+```bash
+CHROMA_PORT=8001 npm run chroma
+# then update CHROMA_URL in backend/.env to http://localhost:8001
+```
+
+If you prefer to run commands directly inside each app folder:
 
 ```bash
 cd backend
+cp .env.example .env
 npm install
+npm run chroma
 npm run dev
 ```
-
-Frontend:
 
 ```bash
 cd frontend
@@ -47,6 +62,9 @@ npm run dev
 - `GEMINI_API_KEY`
 - `GEMINI_TEXT_MODEL`
 - `MAX_CONTEXT_CHUNKS`
+- `CHROMA_URL` (defaults to `http://localhost:8000`)
+
+Create the backend environment file from `.env.example` and replace the placeholder MongoDB connection string before starting the server.
 
 ## API Summary
 

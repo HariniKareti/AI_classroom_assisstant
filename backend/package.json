@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "chroma": "mkdir -p chroma && CHROMA_PORT=${CHROMA_PORT:-8000} ./node_modules/.bin/chroma run --path ./chroma --host 127.0.0.1 --port ${CHROMA_PORT}"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

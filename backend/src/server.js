@@ -18,7 +18,7 @@ const bootstrap = async () => {
 
   registerSocketServer(io);
 
-  server.listen(env.port, () => {
+  server.listen(env.port, "0.0.0.0", () => {
     console.log(`Server running on port ${env.port}`);
   });
 };

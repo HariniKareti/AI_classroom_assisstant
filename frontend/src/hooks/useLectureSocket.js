@@ -1,7 +1,17 @@
 import { useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:5000";
+const resolveSocketUrl = () => {
+  const configuredUrl = (import.meta.env.VITE_SOCKET_URL || "").trim();
+
+  if (/app\.github\.dev/i.test(configuredUrl)) {
+    return window.location.origin;
+  }
+
+  return configuredUrl || window.location.origin;
+};
+
+const SOCKET_URL = resolveSocketUrl();
 
 export const useLectureSocket = (lectureId, handlers = {}) => {
   const handlersRef = useRef(handlers);

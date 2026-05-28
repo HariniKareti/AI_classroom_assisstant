@@ -1,0 +1,9 @@
+{
+  "name": "ai-classroom-assistant",
+  "private": true,
+  "scripts": {
+    "chroma": "cd backend && npm run chroma",
+    "backend:dev": "cd backend && npm run dev",
+    "frontend:dev": "cd frontend && npm run dev"
+  }
+}

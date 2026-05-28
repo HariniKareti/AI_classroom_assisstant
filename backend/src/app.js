@@ -14,9 +14,41 @@ export const createApp = () => {
   const app = express();
 
   app.use(helmet());
+  // Debug: log every incoming request with method, path, and origin
+  app.use((req, res, next) => {
+    // eslint-disable-next-line no-console
+    console.log(`[DEBUG] ${req.method} ${req.path} Origin: ${req.headers.origin || 'N/A'}`);
+    next();
+  });
   app.use(
     cors({
-      origin: env.clientUrl,
+      origin: (origin, callback) => {
+        if (!origin) {
+          callback(null, true);
+          return;
+        }
+
+        const normalizedOrigin = origin.replace(/\/+$/, "");
+        if (env.clientOrigins.includes(normalizedOrigin)) {
+          callback(null, true);
+          return;
+        }
+
+        try {
+          const { hostname, port } = new URL(normalizedOrigin);
+          const isGithubPreviewHost = hostname.endsWith(".app.github.dev");
+          const isLocalDevHost = ["localhost", "127.0.0.1"].includes(hostname) && ["4173", "5173", ""].includes(port);
+
+          if (isGithubPreviewHost || isLocalDevHost) {
+            callback(null, true);
+            return;
+          }
+        } catch (error) {
+          // ignore invalid origin parsing and reject below
+        }
+
+        callback(new Error("Not allowed by CORS"));
+      },
       credentials: true
     })
   );
